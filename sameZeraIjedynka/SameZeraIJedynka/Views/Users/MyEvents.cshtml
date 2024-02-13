@@ -1,0 +1,77 @@
+﻿@using SameZeraIjedynka.Database.Entities;
+@model List<Event>
+
+@{
+    ViewData["Title"] = "Moje eventy";
+}
+
+<div class="container">
+    <!-- ======= Intro Section ======= -->
+    <section class="section-services section-t8">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="title-wrap d-flex justify-content-between">
+                    <div class="title-box">
+                        <h2 class="title-a">Twoje Eventy</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section><!-- End Intro Section -->
+
+    @foreach (var events in Model)
+    {
+        <div class="row section-t3">
+            <div class="property-summary">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="title-box-d section-t4">
+                            <h3 class="title-d">@events.Name</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="summary-list">
+                    <div class="row">
+                        <div class="col-md-9">
+                            <ul class="list">
+                                <li class="d-flex justify-content-between">
+                                    <strong>Data:</strong>
+                                    <span>@events.Date</span>
+                                </li>
+                                <li class="d-flex justify-content-between">
+                                    <strong>Lokalizacja:</strong>
+                                    <span>@events.Place</span>
+                                </li>
+                                <li class="d-flex justify-content-between">
+                                    <strong>Cena:</strong>
+                                    <span>@events.Price</span>
+                                </li>
+                                <li class="d-flex justify-content-between">
+                                    <strong>Pojemność:</strong>
+                                    <span>@events.Capacity</span>
+                                </li>
+                                <li class="d-flex justify-content-between" style="margin: 10px 0px 0px 0px">
+                                    <a asp-area="" asp-controller="Users" asp-action="UpdateEvent" asp-route-eventId="@events.EventId">
+                                        <button class="btn btn-b">Edytuj event</button>
+                                    </a>
+                                </li>
+                                <li class="d-flex justify-content-between" style="margin: 10px 0px 0px 0px">
+                                    <form method="post" asp-area="" asp-controller="Users" asp-action="DeleteEvent" asp-route-eventId="@events.EventId">
+                                        <button type="submit" class="btn btn-b">Usuń event</button>
+                                    </form>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card-header-c d-flex">
+                                <img src="@events.ImagePath" alt="" class="img-d img-fluid" width="800" height="896">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    }
+
+</div>

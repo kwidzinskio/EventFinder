@@ -1,0 +1,144 @@
+﻿@model List<SameZeraIjedynka.Database.Entities.Event>
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+        <!-- ======= Intro Section ======= -->
+        <section>
+            <!-- Page Header -->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="title-wrap d-flex justify-content-between">
+                        <div class="title-box">
+                            <h2 class="title-a">Discover. Learn. Enjoy.</h2>
+                        </div>
+                    </div>
+                </div>
+            </div> <!-- End Page Header -->
+            <!-- Big Photo -->
+            <!-- TODO: Is not perfectly responsive -->
+            <div class="intro intro-carousel swiper position-relative" style="max-height: 800px;>
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide carousel-item-a intro-item bg-image" style="background-image: url(assets/img/title.jpg)">
+                        <div class="overlay overlay-a"></div>
+                        <div class="intro-content display-table">
+                            <div class="table-cell">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-lg-8">
+                                            <div class="intro-body">
+                                                <h1 class="intro-title mb-2">
+                                                        BĄDŹ NA BIEŻĄCO<span class="color-b"> <br> Z LOKALNĄ SCENĄ </span>
+                                                </h1>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- End Big Photo -->
+            <!-- TODO: Investigate - dont know heck what is this doing? -->
+            <div class="swiper-pagination"></div>
+            <!-- Container for recommended events -->
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="title-wrap d-flex justify-content-between">
+                            <div class="title-box title-link">
+                                <h2 class="title-a">Polecane eventy</h2>
+                            </div>
+                            <div class="title-link">
+                                <a asp-area="" asp-controller="Event" asp-action="Index">
+                                    Wszyskie wydarzenia
+                                    <span class="bi bi-chevron-right"></span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Picture And Description Of Recommended Events -->
+                <!-- TODO: need to fix responsivness issue and hiding not showing in desired positions elements like: addToFavorites button etc. -->
+                <div class="row">
+                    @foreach (var events in Model)
+                    {
+                        <div class="col-md-4">
+                            <div class="card-box-d">
+                                <div class="card-img-d">
+                                    <img src="@events.ImagePath" alt="" class="img-d img-fluid" width="800" height="896">
+                                </div>
+                                <div class="card-overlay card-overlay-hover">
+                                    <div class="card-header-d">
+                                        <div class="card-title-d align-self-center">
+                                            <h3 class="title-d">
+                                                <a href="Event/EventDetails/@events.EventId" class="link-two">
+                                                    @events.Name
+                                                </a>
+                                            </h3>
+                                        </div>
+                                    </div>
+                                    <div class="card-body-d">
+                                        <div class="info-agents color-a">
+                                            <p class="content-d color-text-a">
+                                                Największy event IT w tej części Polski! 38 prelegentów, 12 godzin i wiele innych...
+                                            </p>
+                                            <p>
+                                                <strong>Organizator: </strong> @events.Organizer
+                                            </p>
+                                            <p>
+                                                <strong>Data: </strong> @events.Date
+                                            </p>
+                                            <p>
+                                                <strong>Miejsce: </strong> @events.Place
+                                            </p>
+                                            <p>
+                                                <strong>Cena: </strong> @events.Price
+                                            </p>
+                                            <div class="d-flex justify-content-end align-items-end">
+                                                <a href="#" onclick="addToFavorites(@events.EventId)('@events.EventId')" class="">
+                                                    <img src="~/assets/img/add-to-favorites.png">
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div><!-- End Picture And Description Of Recommended Events -->
+                <!-- Title Of Recommended Events -->
+                <div class="row">
+                    @foreach (var events in Model)
+                    {
+                        <div class="col-md-4 title-link">
+                            <strong>@events.Name</strong>
+                        </div>
+                    }
+                </div> <!-- End Title Of Recommended Events -->
+            </div><!-- End Container For Recommended Events -->
+        </section><!-- End Intro Section -->
+
+        <!-- Script Helper For Adding Favorite With The Button -->
+        <!-- TODO: the same script is used in multiple locations and fix relocation -->
+        <script>
+            function addToFavorites(eventId) {
+
+                fetch('/UserFavorite/Add/' + eventId, {
+                    method: 'POST'
+                })
+                    .then(response => {
+                        if (response.ok) {
+                            window.location.href = "https://localhost:7000/UserFavorite"
+                        } else {
+                            console.error('Wystąpił błąd podczas dodawania do ulubionych.');
+                            window.location.href = "https://localhost:7000/UserFavorite"
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Wystąpił błąd podczas wysyłania żądania.');
+                        window.location.href = "https://localhost:7000/UserFavorite"
+                    });
+            }
+        </script><!-- End Script Helper For Adding Favorite With The Button -->

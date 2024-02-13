@@ -1,0 +1,53 @@
+﻿@using SameZeraIJedynka.BusinnessLogic.Models;
+@model EventModel
+@{
+    ViewData["Title"] = "Dodaj wydarzenie";
+}
+
+<!-- TODO: can we delete this view? Make sure if it is not used anymore -->
+<h1>View</h1>
+
+<form method="post" action="View" class="mt-5">
+    <div class="mb-3">
+        <label for="" class="form-label">EventId</label>
+        <input type="numer" class="form-control" asp-for="EventId">
+    </div>
+    <div class="mb-3">
+        <label for="" class="form-label">Name</label>
+        <input type="text" class="form-control" asp-for="Name">
+    </div>
+    <div class="mb-3">
+        <label for="" class="form-label">Date</label>
+        <input type="date" class="form-control" asp-for="Date">
+    </div>
+    <div class="mb-3">
+        <label for="" class="form-label">Organizer</label>
+        <input type="text" class="form-control" asp-for="Organizer">
+    </div>
+    <div class="mb-3">
+        <label for="" class="form-label">Place</label>
+        <input type="text" class="form-control" asp-for="Place">
+    </div>
+    <div class="mb-3">
+        <label for="" class="form-label"Price</label>
+        <input type="number" class="form-control" asp-for="Price">
+    </div>
+    <div class="mb-3">
+        <label for="" class="form-label">Capacity</label>
+       <input type="numer" class="form-control" asp-for="Capacity">
+    </div>
+    <div class="mb-3">
+        <label for="" class="form-label">Target</label>
+        <input type="text" class="form-control" asp-for="Target">
+    </div>
+
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+
+    <button type="subbmit" class="btn btn-danger"
+            asp-action="Delete"
+            asp-controller="Event">
+        Delete
+    </button>
+
+</form>

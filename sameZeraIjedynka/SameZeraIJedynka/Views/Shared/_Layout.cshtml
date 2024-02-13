@@ -1,0 +1,62 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - SameZeraIJedynka</title>
+    
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+
+    <!-- Favicons -->
+    <link href="~/assets/img/fav.png" rel="icon">
+    <link href="~/assets/img/a.png" rel="apple-touch-icon">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.1/css/bootstrap.min.css">
+
+    <!-- Vendor CSS Files -->
+    <link href="~/assets/vendor/animate.css/animate.min.css" rel="stylesheet">
+    <link href="~/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="~/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="~/assets/css/style.css" rel="stylesheet">
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAReNWu6yAhTQLZT26OsnsOhlSTM5KzxAo"></script>
+
+</head>
+
+<!-- TODO: make more partial views and divide views -->
+<body>
+    <!-- ======= Header/Navbar ======= -->
+    <header>
+        <nav class="navbar navbar-default navbar-trans navbar-expand-lg fixed-top">
+            <div class="container" >
+                <!-- Logo -->
+                <a class="navbar-brand text-brand" asp-controller="Home" asp-action="Index">Event<span class="color-b">Finder</span></a><!-- End Logo -->
+                <!-- Menu -->
+                @await Component.InvokeAsync("Navbar")<!-- End Menu -->
+                <!-- Searcher -->
+                <!-- TODO: make searcher similar to filter -->
+                <form method="get" action="@Url.Action("Search", "Event")">
+                    <div class="input-group navbar-toggle-box navbar-toggle-box-collapse">
+                        <input type="text" class="form-control" name="searchPattern" placeholder="Szukaj...">
+                        <button class="btn btn-b-n" type="submit">
+                            <i class="bi bi-search"></i>
+                        </button>
+                    </div>
+                </form> <!-- End Searcher -->
+            </div>
+        </nav>
+    </header><!-- End Header/Navbar -->
+
+    <!-- Page content -->
+    <div class="content">
+         @RenderBody()
+    </div><!-- End page content -->
+
+</body>
+</html>

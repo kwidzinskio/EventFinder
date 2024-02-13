@@ -1,0 +1,78 @@
+﻿@using SameZeraIJedynka.BusinnessLogic.Models;
+@model EventModel
+
+@{
+    ViewData["Title"] = "Dodaj wydarzenie";
+}
+        <div class="container">	
+			<!-- ======= Intro Section ======= -->
+			<section class="section-services section-t8">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="title-wrap d-flex justify-content-between">
+							<div class="title-box">
+                        <h2 class="title-a">Dodaj wydarzenie</h2>
+                            <p class="color-b">Wypełnij dane poniżej</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section><!-- End Intro Section -->
+            <!-- Input Event Form -->
+            <form method="post" enctype="multipart/form-data" action="Add" class="php-email-form">
+                <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <div class="form-group">
+                                <input type="text" class="form-control form-control-lg form-control-a" placeholder="Nazwa eventu" required asp-for="Name">
+                            </div>
+                        </div>
+                         <div class="col-md-6 mb-3">
+                            <div class="form-group">
+                                <input type="text" class="form-control form-control-lg form-control-a" placeholder="Organizator" required asp-for="Organizer">
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="form-group">
+                                <input type="datetime-local" class="form-control form-control-lg form-control-a" placeholder="Data" required asp-for="Date">
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="form-group">
+                                <input type="text" class="form-control form-control-lg form-control-a" placeholder="Miejsce" required asp-for="Place">
+                            </div>
+                        </div>
+                        <div class="col-md-12 mb-3">
+                            <div class="form-group">
+                                <textarea class="form-control form-control-lg form-control-a" placeholder="Opis wydarzenia" required asp-for="Description"></textarea>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="form-group">
+                                <input type="number" class="form-control form-control-lg form-control-a" placeholder="Cena" asp-for="Price" min="0">
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="form-group">
+                                <input type="number" class="form-control form-control-lg form-control-a" placeholder="Pojemność" asp-for="Capacity" min="0">
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="form-group">
+                                <input type="file" class="form-control form-control-lg form-control-a" placeholder="Zdjęcie" accept="image/*" name="image">
+                            </div>
+                        </div>
+                        <div class="col-md-12 mb-3">
+                            <div class="form-group">
+                                <select class="form-control" asp-for="Target">
+                                    <option selected style="display: none;">Kategoria</option>
+                                    <option value="all">Wszyscy</option>
+                                    <option value="grandpas">Seniorzy</option>
+                                    <option value="adults">Dorośli</option>
+                                    <option value="kids">Dzieci</option>
+                                </select>
+                            </div>
+                        </div>
+                    <button class="btn btn-b">Wyślij</button>
+                </div>
+            </form><!-- End Input Form -->
+        </div>

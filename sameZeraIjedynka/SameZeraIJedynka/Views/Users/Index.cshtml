@@ -1,0 +1,50 @@
+﻿@model UserModel
+
+@{
+    ViewData["Title"] = "Moje dane";
+}
+
+<div class="container">
+    <!-- ======= Intro Section ======= -->
+    <section class="section-services section-t8">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="title-wrap d-flex justify-content-between">
+                    <div class="title-box">
+                        <h2 class="title-a">Witaj @Model.Name</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section><!-- End Intro Section -->
+
+    <!-- Start Input Form -->
+    <div style="background-color: #f4f6ec; padding: 40px; border-radius: 10px;">
+        <form method="post" action="Index" ; class="php-email-form">
+            <div class="row">
+                <div class="col-md-12 mb-3">
+                    <div class="form-group">
+                        <input type="text" class="form-control form-control-lg form-control-a" placeholder="Nazwa użytkownika" required asp-for="Name">
+                    </div>
+                </div>
+                <div class="col-md-12 mb-3">
+                    <div class="form-group">
+                        <input type="text" class="form-control form-control-lg form-control-a" placeholder="Email" required asp-for="Email">
+                    </div>
+                </div>
+                <div class="col-md-12 mb-3">
+                    <div class="form-group">
+                        <input type="password" class="form-control form-control-lg form-control-a" placeholder="Nowe hasło" required asp-for="Password">
+                    </div>
+                </div>
+                <div class="col-md-12 mb-3">
+                    <div class="form-group">
+                        <input type="password" class="form-control form-control-lg form-control-a" placeholder="Powtórz nowe hasło" required asp-for="Password">
+                    </div>
+                </div>
+
+                <button class="btn btn-b">Wyślij</button>
+            </div>
+        </form><!-- End Input Form -->
+    </div>
+</div>

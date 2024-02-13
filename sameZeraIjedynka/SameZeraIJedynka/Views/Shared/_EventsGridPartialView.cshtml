@@ -1,0 +1,267 @@
+﻿@{
+	var toggleEventInFavoritesFunction = ViewData["ToggleEventInFavoritesFunction"] as string;
+	var imagePath = ViewData["ImagePath"] as string;
+	var controllerName = ViewData["ControllerName"] as string;
+}
+
+<div class="container" >
+	<!-- ======= Intro Section ======= -->
+	<section class="section-services section-t8">
+		<!-- Page Header -->
+		<div class="row">
+			<div class="col-md-12">
+				<div class="title-wrap d-flex justify-content-between">
+					<div class="title-box">
+						<h2 class="title-a">Discover. Learn. Enjoy.</h2>
+					</div>
+				</div>
+			</div>
+		</div><!-- End Page Header -->
+	</section><!-- End Intro Section -->
+	<!-- ======= Sort Section ======= -->
+	<section class="property-grid grid">
+		<div class="col-sm-12">
+			<div class="grid-option">
+				<form id="sortForm" method="get" action="">
+					<select id="sortOption" class="custom-select input-group mb-3 navbar-toggle-box navbar-toggle-box-collapse" name="sortOption">
+						<option value="" disabled selected>Sortuj</option>
+						<option value="time_left">Od najwcześniejszego</option>
+						<option value="time_left_desc">Od najpóźniejszego</option>
+						<option value="price">Od najtańszego</option>
+						<option value="price_desc">Od najdroższego</option>
+						@if (ViewData["ViewName"]?.ToString() == "Search")
+						{
+							<input type="hidden" name="searchPattern" value="@ViewData["SearchPattern"]" />
+						}
+					</select>
+				</form>
+			</div>
+		</div>
+	</section>
+	<!-- ======= End Sort Section ======= -->
+	<!-- ======= Show Events Section ======= -->
+	<section class="section-services">
+		<div class="row all-event-filter">
+			<!-- Filtering Events -->
+			<div class="left-event-filter">
+				<div class="col-sm-12 section-md-t3">
+					<div class="widget-a">
+						<div class="w-header-a">
+							<p></p>
+							<h3 class="w-title-a text-brand">Kategoria</h3>
+							<p></p>
+						</div>
+						<div class="w-body-a">
+							<div class="w-body-a">
+								<ul class="list-unstyled">
+									<a href="#">
+									<li id="all" class="item-list-a clickable">
+										<a href="#"><i class="bi bi-chevron-right"></i> Wszyscy
+									</li></a>
+									<a href="#">
+									<li id="grandpas" class=" item-list-a clickable">
+										<i class="bi bi-chevron-right"></i> Seniorzy
+									</li></a>
+									<a href="#">
+									<li id="adults" class="item-list-a clickable">
+										<i class="bi bi-chevron-right"></i> Dorośli</a>
+									</li></a>
+									<a href="#">
+									<li id="children" class="item-list-a clickable">
+										<i class="bi bi-chevron-right"></i> Dzieci</a>
+									</li></a>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div><!-- End Filtering Events-->
+			<!-- Events Grid -->
+			<div class="right-event-filter property-grid grid">
+				<!-- Picture And Description Of Recommended Events -->
+				<!-- TODO: need to fix responsivness issue and hiding + is not showing in desired positions elements like: addToFavorites button etc. -->
+				<div class="row">
+					@foreach (var events in Model)
+					{
+						<div class="col-md-4 event-filter" data-category="@events.Target">
+							<div>
+								<div class="row align-items-center">
+									<div class="col-12 title-link d-flex justify-content-between">
+										<strong class="text-truncate overflow-hidden">@events.Name</strong>
+									</div>
+								</div>
+								<div class="card-box-d card-box-x rounded">
+									<div class="card-img-d" style="width: 400px; height: 448px; overflow: hidden; position: relative;">
+										<img src="@events.ImagePath" alt="" class="img-d img-fluid" style="display: block;
+												width: 100%; height: auto; object-fit: contain; position: absolute; top: 50%; left: 50%;
+												transform: translate(-50%, -50%); background-color: black;">
+									</div>
+									<div class="card-overlay card-overlay-hover">
+										<div class="card-header-d">
+											<div class="card-title-d align-self-center">
+												<h3 class="title-d">
+													<a href="https://localhost:7000/Event/EventDetails/@events.EventId" class="link-two text-truncate overflow-hidden">
+														@events.Name
+													</a>
+												</h3>
+											</div>
+										</div>
+										<div class="card-body-d">
+											<div class="info-agents color-a">
+												<p class="content-d color-text-a">
+													@{
+														if (events.Description.Length > 80)
+														{
+															int indexOfSpace = events.Description.IndexOf(' ', 80);
+															if (indexOfSpace != -1)
+															{
+																@Html.Raw(events.Description.Substring(0, indexOfSpace) + " [...]")
+															}
+															else
+															{
+																@Html.Raw(events.Description.Substring(0, 80) + " [...]")
+															}
+														}
+														else
+														{
+															@events.Description;
+														}
+													}
+												</p>
+												<p>
+													<strong>Organizator: </strong> @events.Organizer
+												</p>
+												<p>
+													<strong>Data: </strong> @events.Date
+												</p>
+												<p>
+													<strong>Miejsce: </strong> @events.Place
+												</p>
+												<p>
+													<strong>Cena: </strong> @events.Price
+												</p>
+												<div class="d-flex justify-content-end align-items-end">
+													<a href="#" onclick="@{@toggleEventInFavoritesFunction}(@events.EventId)" class="">
+														<img src="@imagePath">
+													</a>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					}
+					<p></p>
+					<p></p>
+					<p></p>
+				</div><!-- Picture And Description Of Recommended Events -->
+			</div><!-- End Events Grid -->
+		</div>
+	</section><!-- ======= End Show Events Section ======= -->
+</div>
+
+<!-- Scrpit for filtering and sorting events in grid -->
+<script>
+	function redirectToSortedPage(redirectUrl) {
+		const currentUrl = window.location.href;
+		window.location.replace(redirectUrl);
+		document.body.style.visibility = 'hidden';
+	}
+
+	function sortEvents() {
+		sortForm.submit();
+	}
+
+	function filterEvents(categories) {
+		const eventsContainer = document.querySelector('.right-event-filter .row');
+		const events = Array.from(eventsContainer.children);
+		events.forEach(event => {
+			const eventCategory = event.getAttribute('data-category');
+			if (!eventCategory) {
+				return;
+			}
+			if (categories.length === 0 || categories.includes(eventCategory)) {
+				event.style.display = 'block';
+			} 
+			else {
+				event.style.display = 'none';
+			}
+		});
+	}
+
+	function updateStylesBasedOnCategories() {
+		listItems.forEach(item => {
+			const itemId = item.id;
+			if (categories.includes(itemId)) {
+				item.classList.add('selected');
+			}
+		});
+	}
+
+	const listItems = document.querySelectorAll('.clickable');
+	const events = document.querySelectorAll('.event-filter');
+
+	const storedCategories = localStorage.getItem('categories');
+	let categories = [];
+	if (storedCategories) {
+		categories = JSON.parse(storedCategories);
+	}
+
+	let sortOption = localStorage.getItem('sortOption');
+	const sortOptionSelect = document.getElementById('sortOption');
+	if (sortOption) {
+		sortOptionSelect.value = sortOption;
+	}
+
+	sortOptionSelect.addEventListener('change', function () {
+		const selectedSortOption = this.value;
+		localStorage.setItem('sortOption', selectedSortOption);
+		sortOption = selectedSortOption;
+		sortEvents(); 
+	});
+
+	listItems.forEach(item => {
+		item.addEventListener('click', () => {
+			const isSelected = item.classList.contains('selected');
+			if (!isSelected) {
+				const itemId = item.id;
+				if (!categories.includes(itemId)) {
+					item.classList.add('selected');
+					categories.push(itemId);
+				}
+			} else {
+				item.classList.remove('selected');
+				const index = categories.indexOf(item.id);
+				if (index > -1) {
+					categories.splice(index, 1);
+				}
+			}
+			localStorage.setItem('categories', JSON.stringify(categories));
+			filterEvents(categories);
+		});
+	});
+
+	window.addEventListener('DOMContentLoaded', function () {
+		const currentUrl = new URL(window.location.href);
+		const sortOption = localStorage.getItem('sortOption');
+		const sortOptionParam = currentUrl.searchParams.get('sortOption');
+		if (sortOption && sortOption.trim() !== '' && !sortOptionParam) {
+			if (window.location.href.includes('Search')) {
+
+				let redirectUrl = `https://localhost:7000/@controllerName/Search?sortOption=${encodeURIComponent(sortOption)}&searchPattern=@ViewData["SearchPattern"]`;
+				redirectToSortedPage(redirectUrl);
+			}
+			else {
+				let redirectUrl = `https://localhost:7000/@controllerName/Index?sortOption=${encodeURIComponent(sortOption)}`;
+				redirectToSortedPage(redirectUrl);
+			}
+		}
+	});
+	filterEvents(categories);
+	updateStylesBasedOnCategories();
+</script><!-- End Scrpit For Filtering And Sorting Events In Grid -->
+
+
+
+

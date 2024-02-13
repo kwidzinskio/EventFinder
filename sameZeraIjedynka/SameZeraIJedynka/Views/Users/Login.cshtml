@@ -1,0 +1,58 @@
+﻿@using SameZeraIjedynka.BusinnessLogic.Models;
+@model LoginUserModel
+
+@{
+    ViewData["Title"] = "Logowanie";
+}
+
+<div class="container" >
+    <!-- ======= Intro Section ======= -->
+    <section class="section-services section-t8">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="title-wrap d-flex justify-content-between">
+                    <div class="title-box">
+                        <h2 class="title-a">Logowanie</h2>
+                        <p class="color-b">Witamy ponownie</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section><!-- End Intro Section -->
+
+    <div style="background-color: #f4f6ec; padding: 40px; border-radius: 10px;">
+        <!-- Start Input Form -->
+        <form method="post" action="Login"; class="php-email-form">
+            <div class="row">
+                <div class="col-md-12 mb-3">
+                    <div class="form-group">
+                        <input type="text" class="form-control form-control-lg form-control-a" placeholder="Nazwa użytkownika" required asp-for="Name">
+                    </div>
+                </div>
+                <div class="col-md-12 mb-3">
+                    <div class="form-group">
+                        <input type="password" class="form-control form-control-lg form-control-a" placeholder="Hasło" required asp-for="Password">
+                    </div>
+                </div>
+                 @if (!ViewData.ModelState.IsValid)
+                 {
+                     <div class="alert alert-danger">
+                         @Html.ValidationSummary()
+                     </div>
+                 }
+                <button class="btn btn-b">Zaloguj</button>
+            </div>
+        </form><!-- End Input Form -->
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="title-wrap d-flex justify-content-between">
+                <div class="title-box">
+                    <h3 style="padding: 40px 0px 10px 0px">Nie masz jeszcze konta?</h3>
+                        <a class="title-a" asp-area="" asp-controller="Users" asp-action="Register">
+                            <button class="btn btn-b">Zarejestruj się</button>
+                        </a>
+                </div>
+            </div>
+        </div>

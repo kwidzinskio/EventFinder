@@ -1,0 +1,33 @@
+﻿@model List<SameZeraIjedynka.Database.Entities.Event>
+
+@{
+	ViewData["Title"] = "Wyszukiwanie";
+	ViewData["toggleEventInFavoritesFunction"] = "addToFavorites";
+	ViewData["ImagePath"] = "/assets/img/add-to-favorites.png";
+	ViewData["controllerName"] = "Event";
+	ViewData["ViewName"] = "Search";
+}
+
+@Html.Partial("_EventsGridPartialView")
+
+<!-- Script Helper For Adding Event To Favorites -->
+<script>
+	function addToFavorites(eventId) {
+		fetch('/UserFavorite/Add/' + eventId, {
+			method: 'POST'
+		})
+			.then(response => {
+				if (response.ok) {
+					window.location.href = "https://localhost:7000/UserFavorite"
+				} else {
+					console.error('Wystąpił błąd podczas dodawania do ulubionych.');
+					window.location.href = "https://localhost:7000/UserFavorite"
+				}
+			})
+			.catch(error => {
+				console.error('Wystąpił błąd podczas wysyłania żądania.');
+				window.location.href = "https://localhost:7000/UserFavorite"
+			});
+
+	}
+</script><!-- End Script Helper For Adding Event To Favorites -->
